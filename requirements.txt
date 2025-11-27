@@ -1,0 +1,34 @@
+# Core Libraries
+pandas
+numpy
+scikit-learn
+xgboost
+
+# Data Visualization
+matplotlib
+seaborn
+plotly
+
+# Configuration & Utilities
+pyyaml
+python-dotenv
+
+# Model Serialization
+joblib
+
+# Testing
+pytest
+pytest-cov
+
+# Logging & Monitoring
+loguru
+
+# API (Optional)
+fastapi
+uvicorn
+pydantic
+
+# Code Quality
+black
+flake8
+isort

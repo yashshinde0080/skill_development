@@ -1,0 +1,113 @@
+# Project Configuration
+project:
+  name: "Car Price Prediction"
+  version: "1.0.0"
+  description: "ML project for predicting car selling prices"
+
+# Data Configuration
+data:
+  raw_path: "data/raw/car_data.csv"
+  processed_path: "data/processed/"
+  train_file: "train_data.csv"
+  test_file: "test_data.csv"
+  test_size: 0.2
+  random_state: 42
+
+# Feature Configuration
+features:
+  target: "selling_price"
+  numerical:
+    - "year"
+    - "km_driven"
+    - "mileage"
+    - "engine"
+    - "max_power"
+    - "seats"
+  categorical:
+    - "fuel"
+    - "seller_type"
+    - "transmission"
+    - "owner"
+  
+  # Feature Engineering
+  create_age: true
+  current_year: 2024
+  log_transform_target: true
+
+# Preprocessing Configuration
+preprocessing:
+  handle_missing: true
+  missing_strategy:
+    numerical: "median"
+    categorical: "mode"
+  outlier_removal: true
+  outlier_method: "iqr"
+  outlier_threshold: 1.5
+  scaling_method: "standard"  # options: standard, minmax, robust
+
+# Model Configuration
+models:
+  linear_regression:
+    enabled: true
+    params: {}
+  
+  random_forest:
+    enabled: true
+    params:
+      n_estimators: 100
+      max_depth: 15
+      min_samples_split: 5
+      min_samples_leaf: 2
+      random_state: 42
+      n_jobs: -1
+  
+  xgboost:
+    enabled: true
+    params:
+      n_estimators: 200
+      max_depth: 6
+      learning_rate: 0.1
+      subsample: 0.8
+      colsample_bytree: 0.8
+      random_state: 42
+      n_jobs: -1
+
+# Hyperparameter Tuning
+hyperparameter_tuning:
+  enabled: true
+  method: "grid_search"  # options: grid_search, random_search, bayesian
+  cv_folds: 5
+  scoring: "neg_root_mean_squared_error"
+
+# Evaluation Metrics
+evaluation:
+  metrics:
+    - "rmse"
+    - "mae"
+    - "r2"
+    - "mape"
+  cross_validation:
+    enabled: true
+    folds: 5
+
+# Model Saving
+model_saving:
+  path: "models/"
+  save_preprocessor: true
+  save_all_models: true
+  best_model_name: "best_model.pkl"
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  format: "{time:YYYY-MM-DD HH:mm:ss} | {level} | {module}:{function}:{line} - {message}"
+  path: "logs/training.log"
+  rotation: "10 MB"
+  retention: "1 week"
+
+# Visualization
+visualization:
+  save_plots: true
+  plot_path: "reports/figures/"
+  figure_format: "png"
+  dpi: 300
