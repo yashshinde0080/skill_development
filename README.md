@@ -677,7 +677,7 @@ in the Software without restriction...
 
 ### ⭐ Star this repo if you find it helpful!
 
-**Made with ❤️ by [Your Name](https://github.com/yourusername)**
+**Made with ❤️ by [Yash Shinde](https://github.com/yashshinde0080)**
 
 [⬆ Back to Top](#-car-price-prediction-ml-pipeline)
 
