@@ -1,7 +1,7 @@
-# File Tree: skill_development
+# File Tree: practice-1
 
-**Generated:** 11/27/2025, 9:43:22 PM
-**Root Path:** `d:\skill_development`
+**Generated:** 11/27/2025, 9:40:12 PM
+**Root Path:** `d:\practice-1`
 
 ```
 ├── 📁 .github

@@ -32,3 +32,6 @@ pydantic
 black
 flake8
 isort
+
+# Web UI
+streamlit

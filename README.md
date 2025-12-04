@@ -172,6 +172,7 @@ graph LR
 ├── 🐍 file.py
 └── 📄 requirements.txt
 ```
+
 ---
 
 ## 🚀 Installation
