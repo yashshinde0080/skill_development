@@ -60,20 +60,88 @@ st.markdown("""
 
 @st.cache_resource
 def load_predictor():
-    """Load the model predictor (cached for performance)."""
+    """Load the model predictor, training if necessary."""
     try:
         model_path = project_root / "models" / "best_model.pkl"
         preprocessor_path = project_root / "models" / "preprocessor.pkl"
         
+        # Check if model exists
+        if not model_path.exists() or not preprocessor_path.exists():
+            st.warning("Model not found. Attempting to train new model...")
+            
+            with st.status("Training model...", expanded=True) as status:
+                try:
+                    # Import training modules here to avoid slowing down app startup
+                    from src.data.data_loader import DataLoader, load_sample_data
+                    from src.data.data_preprocessing import DataPreprocessor
+                    from src.models.train import ModelTrainer
+                    
+                    status.write("Initializing components...")
+                    
+                    # Create directories
+                    (project_root / "models").mkdir(exist_ok=True)
+                    (project_root / "logs").mkdir(exist_ok=True)
+                    
+                    # Try to find data
+                    data_loader = DataLoader()
+                    data_path = project_root / "data" / "raw" / "cardekho.csv"
+                    fallback_path = project_root / "data" / "raw" / "car_data.csv"
+                    
+                    if data_path.exists():
+                        status.write(f"Loading data from {data_path.name}...")
+                        df = data_loader.load_csv(data_path)
+                    elif fallback_path.exists():
+                        status.write(f"Loading data from {fallback_path.name}...")
+                        df = data_loader.load_csv(fallback_path)
+                    else:
+                        status.write("No data found. Using sample data...")
+                        df = load_sample_data()
+                    
+                    # Preprocess
+                    status.write("Preprocessing data...")
+                    preprocessor = DataPreprocessor()
+                    df_clean = preprocessor.clean_data(df)
+                    df_features = preprocessor.create_features(df_clean)
+                    X, y = preprocessor.prepare_features(df_features, fit=True)
+                    
+                    # Save preprocessor
+                    preprocessor.save_preprocessor(preprocessor_path)
+                    
+                    # Train
+                    status.write("Training Random Forest model (quickest reliable model)...")
+                    trainer = ModelTrainer()
+                    
+                    # Train just Random Forest for speed/reliability in cloud
+                    # XGBoost might be heavy or missing
+                    model = trainer.train_single_model(
+                        'random_forest', 
+                        X, y,
+                        params={'n_estimators': 100, 'random_state': 42, 'n_jobs': -1}
+                    )
+                    
+                    # Save model
+                    trainer.best_model = model
+                    trainer.best_model_name = 'random_forest'
+                    trainer.save_models(save_all=False, save_path=project_root / "models")
+                    
+                    status.update(label="Training complete!", state="complete", expanded=False)
+                    st.success("Model trained successfully!")
+                    
+                except Exception as e:
+                    st.error(f"Training failed: {str(e)}")
+                    return None, str(e)
+        
+        # Load the predictor
         predictor = ModelPredictor(
             model_path=model_path,
             preprocessor_path=preprocessor_path
         )
         return predictor, None
+        
     except FileNotFoundError as e:
-        return None, str(e)
+        return None, f"File not found: {e}"
     except Exception as e:
-        return None, str(e)
+        return None, f"Error loading model: {e}"
 
 
 def get_fuel_types():
