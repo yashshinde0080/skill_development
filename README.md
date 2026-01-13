@@ -179,7 +179,9 @@ graph LR
 
 link:
 
-`https://car-prediction-ml-system.streamlit.app/`
+```
+https://car-prediction-ml-system.streamlit.app/
+```
 
 
 ## 🚀 Installation
