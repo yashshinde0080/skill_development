@@ -69,6 +69,12 @@ def parse_args():
         choices=["DEBUG", "INFO", "WARNING", "ERROR"],
         help="Logging level"
     )
+    parser.add_argument(
+        "--epochs",
+        type=int,
+        default=None,
+        help="Number of epochs/estimators for models"
+    )
     
     return parser.parse_args()
 
@@ -196,6 +202,16 @@ def main():
         logger.info("="*40)
         
         trainer = ModelTrainer()
+        
+        # Override config with command line arguments
+        if args.epochs:
+            logger.info(f"Overriding n_estimators with epochs={args.epochs}")
+            
+            # Update Random Forest
+            trainer.config.update('models.random_forest.params.n_estimators', args.epochs)
+                
+            # Update XGBoost
+            trainer.config.update('models.xgboost.params.n_estimators', args.epochs)
         
         # Train all configured models
         trainer.train_all_models(

@@ -14,7 +14,16 @@ from loguru import logger
 from sklearn.linear_model import LinearRegression, Ridge, Lasso, ElasticNet
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 from sklearn.model_selection import cross_val_score, GridSearchCV, RandomizedSearchCV
-import xgboost as xgb
+try:
+    import xgboost as xgb
+    XGBOOST_AVAILABLE = True
+except ImportError:
+    XGBOOST_AVAILABLE = False
+    logger.warning("XGBoost not installed. XGBoost models will not be available.")
+    # Mock xgb for type hints and safety
+    class MockXGB:
+        class XGBRegressor: pass
+    xgb = MockXGB()
 
 from src.config.config_loader import get_config
 from src.utils.helpers import get_project_root, save_pickle, timer_decorator
@@ -36,9 +45,12 @@ class ModelTrainer:
         'lasso': Lasso,
         'elastic_net': ElasticNet,
         'random_forest': RandomForestRegressor,
-        'gradient_boosting': GradientBoostingRegressor,
-        'xgboost': xgb.XGBRegressor
+        'gradient_boosting': GradientBoostingRegressor
     }
+    
+    if XGBOOST_AVAILABLE:
+        AVAILABLE_MODELS['xgboost'] = xgb.XGBRegressor
+
     
     def __init__(self, config_path: Optional[str] = None):
         """
@@ -84,7 +96,7 @@ class ModelTrainer:
             self._train_random_forest(X_train, y_train, tune_hyperparameters)
         
         # Train XGBoost
-        if self.config.get('models.xgboost.enabled', True):
+        if self.config.get('models.xgboost.enabled', True) and XGBOOST_AVAILABLE:
             self._train_xgboost(X_train, y_train, tune_hyperparameters)
         
         logger.info(f"Completed training {len(self.models)} models")

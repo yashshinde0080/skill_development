@@ -4,51 +4,51 @@
 ## Summary
 Number of models evaluated: 3
 
-**Best Model:** linear_regression
-- RMSE: 209,922.44
-- MAE: 196,510.60
-- R² Score: 0.4173
+**Best Model:** xgboost
+- RMSE: 72,243.57
+- MAE: 51,467.70
+- R² Score: 0.9003
 
 ## Detailed Results
 
 ### Model Comparison Table
 
-| model             |   rmse |    mae |        r2 |    mape |    rmsle |   median_ae |   max_error |   explained_variance |
-|:------------------|-------:|-------:|----------:|--------:|---------:|------------:|------------:|---------------------:|
-| linear_regression | 209922 | 196511 |  0.41729  | 20.7011 | 0.233353 |      196511 |      270342 |            0.92792   |
-| xgboost           | 297902 | 292168 | -0.173493 | 32.5973 | 0.398973 |      292168 |      350335 |            0.95526   |
-| random_forest     | 480176 | 399162 | -2.04884  | 37.9265 | 0.594785 |      399162 |      666067 |            0.0580121 |
+```
+            model          rmse          mae       r2      mape    rmsle    median_ae     max_error  explained_variance
+          xgboost  72243.566689 51467.703125 0.900301 16.697049 0.218769 37357.500000 429322.000000            0.900651
+    random_forest  77933.666317 55619.384624 0.883977 17.431856 0.220844 39329.285754 433155.113606            0.884532
+linear_regression 114761.974713 87375.615034 0.748412 31.036713      NaN 71085.492668 543429.346189            0.748993
+```
 
 ### linear_regression
 
-- RMSE: 209,922.44
-- MAE: 196,510.60
-- R2: 0.4173
-- MAPE: 20.70%
-- RMSLE: 0.2334
-- MEDIAN_AE: 196,510.60
-- MAX_ERROR: 270,341.58
-- EXPLAINED_VARIANCE: 0.9279
+- RMSE: 114,761.97
+- MAE: 87,375.62
+- R2: 0.7484
+- MAPE: 31.04%
+- MEDIAN_AE: 71,085.49
+- MAX_ERROR: 543,429.35
+- EXPLAINED_VARIANCE: 0.7490
 
 ### random_forest
 
-- RMSE: 480,175.53
-- MAE: 399,162.50
-- R2: -2.0488
-- MAPE: 37.93%
-- RMSLE: 0.5948
-- MEDIAN_AE: 399,162.50
-- MAX_ERROR: 666,066.67
-- EXPLAINED_VARIANCE: 0.0580
+- RMSE: 77,933.67
+- MAE: 55,619.38
+- R2: 0.8840
+- MAPE: 17.43%
+- RMSLE: 0.2208
+- MEDIAN_AE: 39,329.29
+- MAX_ERROR: 433,155.11
+- EXPLAINED_VARIANCE: 0.8845
 
 ### xgboost
 
-- RMSE: 297,901.64
-- MAE: 292,167.69
-- R2: -0.1735
-- MAPE: 32.60%
-- RMSLE: 0.3990
-- MEDIAN_AE: 292,167.69
-- MAX_ERROR: 350,334.94
-- EXPLAINED_VARIANCE: 0.9553
+- RMSE: 72,243.57
+- MAE: 51,467.70
+- R2: 0.9003
+- MAPE: 16.70%
+- RMSLE: 0.2188
+- MEDIAN_AE: 37,357.50
+- MAX_ERROR: 429,322.00
+- EXPLAINED_VARIANCE: 0.9007
 

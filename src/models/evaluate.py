@@ -524,7 +524,11 @@ class ModelEvaluator:
         
         report.append("## Detailed Results\n\n")
         report.append("### Model Comparison Table\n\n")
-        report.append(comparison_df.to_markdown(index=False) + "\n\n")
+        try:
+            report.append(comparison_df.to_markdown(index=False) + "\n\n")
+        except ImportError:
+            logger.warning("tabulate not installed, falling back to to_string")
+            report.append("```\n" + comparison_df.to_string(index=False) + "\n```\n\n")
         
         for name, results in self.evaluation_results.items():
             report.append(f"### {name}\n\n")

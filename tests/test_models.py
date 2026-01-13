@@ -32,6 +32,9 @@ class TestModelTrainer:
     def training_data(self):
         """Create training data."""
         preprocessor = DataPreprocessor()
+        # Disable outlier removal for deterministic data shape
+        preprocessor.config.update('preprocessing.outlier_removal', False)
+        
         df = load_sample_data()
         df_clean = preprocessor.clean_data(df)
         df_features = preprocessor.create_features(df_clean)
@@ -165,6 +168,9 @@ class TestModelTrainer:
     def test_cross_validation(self, trainer, training_data):
         """Test cross-validation scoring."""
         X, y, _ = training_data
+        
+        # Set folds in config as it overrides the argument
+        trainer.config.update('evaluation.cross_validation.folds', 3)
         
         from sklearn.linear_model import LinearRegression
         model = LinearRegression()

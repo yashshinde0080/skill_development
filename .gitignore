@@ -138,3 +138,5 @@ logs/*.log
 # OS files
 .DS_Store
 Thumbs.db
+# Snyk Security Extension - AI Rules (auto-generated)
+.github/instructions/snyk_rules.instructions.md

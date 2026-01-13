@@ -1,0 +1,28 @@
+[project]
+name = "skill-development"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "black>=25.12.0",
+    "fastapi>=0.128.0",
+    "flake8>=7.3.0",
+    "isort>=7.0.0",
+    "joblib>=1.5.3",
+    "loguru>=0.7.3",
+    "matplotlib>=3.10.8",
+    "numpy>=2.4.1",
+    "pandas>=2.3.3",
+    "plotly>=6.5.1",
+    "pydantic>=2.12.5",
+    "pytest>=9.0.2",
+    "pytest-cov>=7.0.0",
+    "python-dotenv>=1.2.1",
+    "pyyaml>=6.0.3",
+    "scikit-learn>=1.8.0",
+    "seaborn>=0.13.2",
+    "streamlit>=1.52.2",
+    "uvicorn>=0.40.0",
+    "xgboost>=3.1.3",
+]
