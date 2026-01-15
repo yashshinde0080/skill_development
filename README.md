@@ -624,15 +624,6 @@ For detailed documentation, visit:
 
 ---
 
-## 🎓 Learning Resources
-
-- [Machine Learning Basics](docs/ml_basics.md)
-- [Feature Engineering Guide](docs/feature_engineering.md)
-- [Model Selection Tutorial](docs/model_selection.md)
-- [Production ML Best Practices](docs/best_practices.md)
-
----
-
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
