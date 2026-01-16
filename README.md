@@ -175,7 +175,7 @@ graph LR
 
 ---
 
-## Deployment link
+## Deployed link
 
 link:
 
